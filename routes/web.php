@@ -60,4 +60,11 @@ Route::get('/emp/{emp:name}', function(Emp $emp){
     return $emp;                                // name based emp data values return
 });
 
+//URL Helper Function have another 2 types - route() & action() also
+        //url()->current(); -   return current web page url
+        //url()->full();    -   return url with origin http / https
+        //url('emp-list');  -   return for a emp-list route
+        //URL::current();   -   return url by the URL Facade
+
+
 
