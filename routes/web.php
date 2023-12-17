@@ -11,7 +11,7 @@ Route::view('/','home');
 
 //CRUD
 
-Route::view('/emp-create','EmpCreate');
+Route::view('/emp-create','Emp.EmpCreate');
 
 Route::post('emp-store', function(Request $request){
     Emp::create($request->all());
