@@ -51,3 +51,13 @@ Route::get('api-list', function(){
     $api = Http::get('https://jsonplaceholder.typicode.com/posts');
     return view('Api.ApiList', ['api'=>json_decode($api)]);
 });
+
+//Route Model Binding
+Route::get('/emp/{emp}', function(Emp $emp){
+    return $emp;                                //emp id based return the data values
+});
+Route::get('/emp/{emp:name}', function(Emp $emp){
+    return $emp;                                // name based emp data values return
+});
+
+
