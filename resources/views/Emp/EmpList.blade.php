@@ -45,6 +45,7 @@
                     </form> <br>
 
                     <a href="/emp/edit/{{ $emp->id }}"><button class="btn btn-primary">Edit</button></a>
+                    <br> <br>
                     <a href="/emp/show/{{ $emp->id }}"><button class="btn btn-info">Show</button></a>
 
                 </td>

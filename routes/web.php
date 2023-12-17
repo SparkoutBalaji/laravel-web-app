@@ -4,29 +4,24 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Models\Emp;
 use Symfony\Component\HttpFoundation\Request;
+use Illuminate\Support\Facades\Http;
 
 Route::get('/{id}',[UserController::class,'show'])->where(['id'=>'[0-9]+']);
 Route::view('/','home');
 
-// Route::get('/all', function()
-// {
-//     //$emp = Emp::where('id',11)->first();
-//     $emp = Emp::find(11);
-//     echo "<pre/>";
-//     print_r($emp);
-// });
+//CRUD
 
 Route::view('/emp-create','EmpCreate');
 
 Route::post('emp-store', function(Request $request){
     Emp::create($request->all());
-    return response()->json(['message' => 'Data saved successfully']);
+    return redirect()->route('emp-list')->with('success','Successfully Stored');
 })->name('emp-store');
 
 Route::get('/emp-list', function()
 {
     $emp = Emp::all();
-    return view('EmpList', compact('emp'));
+    return view('Emp.EmpList', compact('emp'));
 })->name('emp-list');
 
 Route::delete('/emp/delete/{id}', function ($id) {
@@ -37,7 +32,7 @@ Route::delete('/emp/delete/{id}', function ($id) {
 
 Route::get('/emp/edit/{id}', function($id){
     $emp = Emp::find($id);
-    return view('EmpEdit', compact('emp'));
+    return view('Emp.EmpEdit', compact('emp'));
 });
 
 Route::put('/emp/update/{id}', function(Request $request, $id){
@@ -48,5 +43,11 @@ Route::put('/emp/update/{id}', function(Request $request, $id){
 
 Route::get('/emp/show/{id}', function($id){
     $emp = Emp::find($id);
-    return view('EmpShow', compact('emp'));
+    return view('Emp.EmpShow', compact('emp'));
+});
+
+//API by Http Client
+Route::get('api-list', function(){
+    $api = Http::get('https://jsonplaceholder.typicode.com/posts');
+    return view('Api.ApiList', ['api'=>json_decode($api)]);
 });
