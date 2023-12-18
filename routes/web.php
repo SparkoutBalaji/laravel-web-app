@@ -7,6 +7,7 @@ use App\Models\Emp;
 use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Support\Facades\Http;
 use App\Events\EmpEvent;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 Route::get('/{id}',[UserController::class,'show'])->where(['id'=>'[0-9]+']);
 //Route::view('/','home');
@@ -16,7 +17,9 @@ Route::get('/', function(){
 
 //CRUD
 
-Route::view('/emp-create','Emp.EmpCreate');
+Route::get('/emp-create', function(Request $request){
+    return view('Emp.EmpCreate');
+});
 
 Route::post('emp-store', function(Request $request){
     $emp = Emp::create($request->all());

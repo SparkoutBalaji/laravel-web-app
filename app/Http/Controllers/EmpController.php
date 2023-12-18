@@ -10,9 +10,9 @@ class EmpController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
+    public function add($x,$y)
+    {   $z = $x + $y;
+        return $z;
     }
 
     /**
