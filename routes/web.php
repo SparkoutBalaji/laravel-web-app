@@ -2,19 +2,25 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Mail\EmpWelcomeMail;
 use App\Models\Emp;
 use Symfony\Component\HttpFoundation\Request;
 use Illuminate\Support\Facades\Http;
+use App\Events\EmpEvent;
 
 Route::get('/{id}',[UserController::class,'show'])->where(['id'=>'[0-9]+']);
-Route::view('/','home');
+//Route::view('/','home');
+Route::get('/', function(){
+    dd(app());
+});
 
 //CRUD
 
 Route::view('/emp-create','Emp.EmpCreate');
 
 Route::post('emp-store', function(Request $request){
-    Emp::create($request->all());
+    $emp = Emp::create($request->all());
+    event(new EmpEvent($emp));
     return redirect()->route('emp-list')->with('success','Successfully Stored');
 })->name('emp-store');
 
